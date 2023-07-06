@@ -9,6 +9,7 @@ ThisBuild / description            := "A collection of opinionated extensions an
 ThisBuild / licenses               := List(
   "Apache 2" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt")
 )
+ThisBuild / versionScheme          := Some("early-semver")
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 ThisBuild / sonatypeRepository     := "https://s01.oss.sonatype.org/service/local"
 ThisBuild / developers             := List(
