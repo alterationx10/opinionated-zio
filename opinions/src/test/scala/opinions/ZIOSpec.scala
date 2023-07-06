@@ -49,6 +49,21 @@ object ZIOSpec extends ZIOSpecDefault:
           config.b == 1234
         )
       },
+      test("Auto derives a layer for a case class") {
+        for {
+          service <- ZIO
+                       .service[TestServiceImpl]
+                       .provide(
+                         AutoLayer[TestServiceImpl],
+                         0.ulayer,
+                         ConfigLayer[TestConfig]("com.alterationx10.testconfig")
+                       )
+        } yield assertTrue(
+          service.port == 0,
+          service.config.a == "hello",
+          service.config.b == 1234
+        )
+      },
       test("Auto derives a layer for a service as the parent type") {
         for {
           service <- ZIO
