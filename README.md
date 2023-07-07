@@ -18,13 +18,13 @@ libraryDependencies += "com.alterationx10" %% "opinionated-zio" % "0.0.1"
 ### scala cli
 
 ```scala
-//> using lib com.alterationx10::opinionated-zio:v0.0.1
+//> using lib com.alterationx10::opinionated-zio:0.0.1
 ```
 
 ### mill
 
 ```scala
-ivy"com.alterationx10::opinionated-zio:v0.0.1"
+ivy"com.alterationx10::opinionated-zio:0.0.1"
 ```
 
 ## Example Usages
