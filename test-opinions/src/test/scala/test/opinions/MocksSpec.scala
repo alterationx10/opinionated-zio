@@ -67,5 +67,52 @@ object MocksSpec extends ZIOSpecDefault:
           result == "forty two",
           error.getMessage == "boom"
         )
+      },
+      test("when => expect") {
+        val capturedWhen = SomeMockService.Get.when(42)
+        for {
+          a  <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .provide(
+                    capturedWhen.expect("a")
+                  )
+          b  <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .provide(
+                    capturedWhen.expect("b")
+                  )
+          c  <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .provide(
+                    SomeMockService.Get.when(42.eqTo).expect("c")
+                  )
+          d  <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .provide(
+                    SomeMockService.Get.when(42).expect("d".expected)
+                  )
+          e1 <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .flip
+                  .provide(
+                    capturedWhen.expectF(new Exception("boom"))
+                  )
+          e2 <- ZIO
+                  .serviceWithZIO[SomeService](_.get(42))
+                  .flip
+                  .provide(
+                    SomeMockService.Get
+                      .when(42)
+                      .expect(new Exception("boom2").expectedF)
+                  )
+          _  <- ZIO.unit
+        } yield assertTrue(
+          a == "a",
+          b == "b",
+          c == "c",
+          d == "d",
+          e1.getMessage == "boom",
+          e2.getMessage == "boom2"
+        )
       }
     )
