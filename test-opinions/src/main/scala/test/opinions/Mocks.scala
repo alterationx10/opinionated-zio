@@ -108,3 +108,43 @@ extension [S, E: Tag, I, O: Tag](
     * @return
     */
   def expectF(e: E) = partialServiceMethod(e.expectedF)
+
+extension [A, B](t: (Assertion[A], Assertion[B]))
+  /** Convert a Tuple of Assertions into an Assertion of a Tuple
+    */
+  def asserted: Assertion[(A, B)] =
+    Assertion.hasField("_1", (tt: (A, B)) => tt._1, t._1) &&
+      Assertion.hasField("_2", (tt: (A, B)) => tt._2, t._2)
+
+extension [A, B, C](t: (Assertion[A], Assertion[B], Assertion[C]))
+  /** Convert a Tuple of Assertions into an Assertion of a Tuple
+    */
+  def asserted: Assertion[(A, B, C)] =
+    Assertion.hasField("_1", (tt: (A, B, C)) => tt._1, t._1) &&
+      Assertion.hasField("_2", (tt: (A, B, C)) => tt._2, t._2) &&
+      Assertion.hasField("_3", (tt: (A, B, C)) => tt._3, t._3)
+
+extension [A, B, C, D](
+    t: (Assertion[A], Assertion[B], Assertion[C], Assertion[D])
+)
+  /** Convert a Tuple of Assertions into an Assertion of a Tuple
+    */
+  def asserted: Assertion[(A, B, C, D)] =
+    Assertion.hasField("_1", (tt: (A, B, C, D)) => tt._1, t._1) &&
+      Assertion.hasField("_2", (tt: (A, B, C, D)) => tt._2, t._2) &&
+      Assertion.hasField("_3", (tt: (A, B, C, D)) => tt._3, t._3) &&
+      Assertion.hasField("_4", (tt: (A, B, C, D)) => tt._4, t._4)
+
+extension [A, B, C, D, E](
+    t: (Assertion[A], Assertion[B], Assertion[C], Assertion[D], Assertion[E])
+)
+  /** Convert a Tuple of Assertions into an Assertion of a Tuple
+    */
+  def asserted: Assertion[(A, B, C, D, E)] =
+    Assertion.hasField("_1", (tt: (A, B, C, D, E)) => tt._1, t._1) &&
+      Assertion.hasField("_2", (tt: (A, B, C, D, E)) => tt._2, t._2) &&
+      Assertion.hasField("_3", (tt: (A, B, C, D, E)) => tt._3, t._3) &&
+      Assertion.hasField("_4", (tt: (A, B, C, D, E)) => tt._4, t._4) &&
+      Assertion.hasField("_5", (tt: (A, B, C, D, E)) => tt._5, t._5)
+
+// TODO more tuples :-(
