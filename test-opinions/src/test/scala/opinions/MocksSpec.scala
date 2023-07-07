@@ -1,3 +1,0 @@
-package opinions
-
-object MocksSpec

@@ -1,8 +1,7 @@
-package opinions
+package test.opinions
 
 import zio.*
 import zio.mock.*
-import opinions.*
 import zio.test.Assertion
 
 extension [S, E: Tag, I, O: Tag](serviceMethod: Mock[S]#Effect[I, E, O])

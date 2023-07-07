@@ -1,4 +1,4 @@
-package opinions
+package test.opinions
 
 import zio.*
 import zio.mock.*
