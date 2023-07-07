@@ -25,7 +25,7 @@ lazy val root = (project in file("."))
   .settings(
     publish / skip := true
   )
-  .aggregate(opinions)
+  .aggregate(opinions, testOpinions)
 
 lazy val opinions = (project in file("opinions"))
   .settings(
@@ -33,3 +33,11 @@ lazy val opinions = (project in file("opinions"))
     libraryDependencies ++= Dependencies.opinions,
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )
+
+lazy val testOpinions = (project in file("test-opinions"))
+  .settings(
+    name := "opinionated-zio-test",
+    libraryDependencies ++= Dependencies.testOpinions,
+    testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+  )
+  .dependsOn(opinions)

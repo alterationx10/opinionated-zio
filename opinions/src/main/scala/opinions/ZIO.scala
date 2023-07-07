@@ -22,6 +22,10 @@ extension [Z: Tag](z: Z)
     */
   def uio: UIO[Z] = ZIO.succeed(z)
 
+  /** Wraps an instance z: Z in ZIO.fail
+    */
+  def fail: IO[Z, Nothing] = ZIO.fail(z)
+
 extension [R: Tag, E: Tag, A: Tag](zio: ZIO[R, E, A])
   /** Wraps a zio: ZIO[R, E, A] as ZLayer(zio)
     */

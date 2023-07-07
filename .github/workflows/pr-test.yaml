@@ -18,5 +18,5 @@ jobs:
           java-version: "17"
           cache: "sbt"
       - name: Test Opinions
-        run: sbt opinions/test
+        run: sbt test
 

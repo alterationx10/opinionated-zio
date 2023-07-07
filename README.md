@@ -7,24 +7,28 @@ Scala 3 (and only Scala 3).
 
 ## Installation
 
-Check the badge above, or the latest GitHub release for the latest version.
+Check the badge above, or the latest GitHub release for the latest version
+to replace `x.y.z`.
 
 ### sbt
 
 ```scala
-libraryDependencies += "com.alterationx10" %% "opinionated-zio" % "0.0.1"
+libraryDependencies += "com.alterationx10" %% "opinionated-zio" % "x.y.z"
+libraryDependencies += "com.alterationx10" %% "opinionated-zio-test" % "x.y.z" % Test
 ```
 
 ### scala cli
 
 ```scala
-//> using lib com.alterationx10::opinionated-zio:v0.0.1
+//> using dep com.alterationx10::opinionated-zio:x.y.z
+//> using test.dep com.alterationx10::opinionated-zio-test:x.y.z
 ```
 
 ### mill
 
 ```scala
-ivy"com.alterationx10::opinionated-zio:v0.0.1"
+ivy"com.alterationx10::opinionated-zio:x.y.z"
+ivy"com.alterationx10::opinionated-zio-test:x.y.z"
 ```
 
 ## Example Usages
@@ -91,3 +95,14 @@ val superLayer: ZLayer[Int & Config, Nothing, Service] =
 
 
 ```
+
+## Example Test Library Usages
+
+Everything is bundled into one package for the test library as well, and to use
+it, you only need to
+
+```scala
+import test.opinons.*
+```
+
+More docs to come, but please check the corresponding tests for examples.

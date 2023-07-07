@@ -20,4 +20,11 @@ object Dependencies {
     "dev.zio" %% "zio-config-typesafe" % Versions.zioConfig
   )
 
+  val testOpinions: Seq[ModuleID] = Seq(
+    "dev.zio" %% "zio-test"          % Versions.zio,
+    "dev.zio" %% "zio-test-sbt"      % Versions.zio,
+    "dev.zio" %% "zio-test-magnolia" % Versions.zio,
+    "dev.zio" %% "zio-mock"          % Versions.zioMock
+  )
+
 }
