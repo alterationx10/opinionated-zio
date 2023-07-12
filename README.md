@@ -4,6 +4,7 @@ A collection of opinionated extensions and helpers around ZIO and vanilla
 Scala 3 (and only Scala 3).
 
 ![Maven Central](https://img.shields.io/maven-central/v/com.alterationx10/opinionated-zio_3)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.alterationx10/opinionated-zio_3?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ## Installation
 
