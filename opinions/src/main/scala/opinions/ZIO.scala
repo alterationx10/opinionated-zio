@@ -31,6 +31,10 @@ extension [R: Tag, E: Tag, A: Tag](zio: ZIO[R, E, A])
     */
   def zlayer: ZLayer[R, E, A] = ZLayer(zio)
 
+extension [R: Tag, E: Tag, A: Tag](zio: ZIO[R & Scope, E, A])
+  def scoped: ZIO[R, E, A]         = ZIO.scoped(zio)
+  def scopedLayer: ZLayer[R, E, A] = ZLayer.scoped(zio)
+
 object ConfigLayer:
   /** Map a path from a typesafe config to case class C
     */
