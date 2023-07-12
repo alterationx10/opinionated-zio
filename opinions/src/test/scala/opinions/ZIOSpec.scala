@@ -10,7 +10,7 @@ case class TestServiceImpl(port: Int, config: TestConfig) extends TestService
     derives AutoLayer
 
 object ZIOSpec extends ZIOSpecDefault:
-  override def spec: Spec[TestEnvironment with Scope, Any] =
+  override def spec: Spec[TestEnvironment, Any] =
     suite("ZIOSpec")(
       test("converts a value to a UIO")(
         for {
@@ -74,5 +74,13 @@ object ZIOSpec extends ZIOSpecDefault:
                          ConfigLayer[TestConfig]("com.alterationx10.testconfig")
                        )
         } yield assertCompletes
-      }
+      },
+      test("Applies scope") {
+        for {
+          _ <- ZIO.acquireRelease(ZIO.unit)(_ => ZIO.unit).scoped
+          _ <- ZIO.service[String].debug("scoped layer")
+        } yield assertCompletes
+      }.provideLayer(
+        ZIO.acquireRelease("check meowt".uio)(_ => ZIO.unit).scopedLayer
+      )
     )
