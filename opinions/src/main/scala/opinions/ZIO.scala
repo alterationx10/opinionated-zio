@@ -80,8 +80,18 @@ object AutoLayer:
             l.flatMap(_l => z.map(_z => _l :+ _z)),
           )
 
-        val a: ZIO[IAnyType[p.MirroredElemTypes], Nothing, A] =
-          flattened.map(deps => p.fromProduct(Tuple.fromArray(deps.toArray)))
+        // Cast deps to List[Object], since toArray needs ClassTag.
+        // This fix works against Scala 3.3.2-RC1-bin-20230720-98b452d-NIGHTLY
+        // See:
+        // https://github.com/alterationx10/opinionated-zio/issues/7
+        // https://github.com/lampepfl/dotty/issues/18277
+        val a: ZIO[IAnyType[p.MirroredElemTypes], Nothing, A] = {
+          flattened.map { deps =>
+            p.fromProduct {
+              Tuple.fromArray(deps.asInstanceOf[List[Object]].toArray)
+            }
+          }
+        }
 
         new AutoLayer[A]:
           override def zlayer(using
