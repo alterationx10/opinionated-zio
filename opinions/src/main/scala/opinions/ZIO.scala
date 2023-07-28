@@ -1,39 +1,37 @@
 package opinions
 
+import com.typesafe.config.ConfigFactory
+import zio.*
+import zio.config.magnolia.{Descriptor, descriptor}
+import zio.config.typesafe.TypesafeConfig
+import zio.config.{ReadError, toKebabCase}
+
 import scala.compiletime.*
 import scala.deriving.*
-import scala.quoted.*
 import scala.deriving.Mirror.ProductOf
-import com.typesafe.config.ConfigFactory
-import zio.config.magnolia.{Descriptor, descriptor}
-import zio.config.{ReadError, toKebabCase}
-import zio.config.typesafe.TypesafeConfig
-import zio.*
 
-import scala.annotation.targetName
-
-extension [Z: Tag](z: Z)
+extension [Z](z: Z)
   /** Wrap an instance z: Z in ZLayer.succeed
     */
-  def ulayer: ULayer[Z] = ZLayer.succeed(z)
+  inline def ulayer: ULayer[Z] = ZLayer.succeed(z)
 
   /** Wrap an instance z: Z in ZIO.succeed
     * @return
     */
-  def uio: UIO[Z] = ZIO.succeed(z)
+  inline def uio: UIO[Z] = ZIO.succeed(z)
 
   /** Wraps an instance z: Z in ZIO.fail
     */
-  def fail: IO[Z, Nothing] = ZIO.fail(z)
+  inline def fail: IO[Z, Nothing] = ZIO.fail(z)
 
-extension [R: Tag, E: Tag, A: Tag](zio: ZIO[R, E, A])
+extension [R, E, A](zio: ZIO[R, E, A])
   /** Wraps a zio: ZIO[R, E, A] as ZLayer(zio)
     */
-  def zlayer: ZLayer[R, E, A] = ZLayer(zio)
+  inline def zlayer: ZLayer[R, E, A] = ZLayer(zio)
 
-extension [R: Tag, E: Tag, A: Tag](zio: ZIO[R & Scope, E, A])
-  def scoped: ZIO[R, E, A]         = ZIO.scoped(zio)
-  def scopedLayer: ZLayer[R, E, A] = ZLayer.scoped(zio)
+extension [R, E, A](zio: ZIO[R & Scope, E, A])
+  inline def scoped: ZIO[R, E, A]         = ZIO.scoped(zio)
+  inline def scopedLayer: ZLayer[R, E, A] = ZLayer.scoped(zio)
 
 object ConfigLayer:
   /** Map a path from a typesafe config to case class C
